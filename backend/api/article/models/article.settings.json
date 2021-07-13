@@ -1,0 +1,80 @@
+{
+  "kind": "collectionType",
+  "collectionName": "articles",
+  "info": {
+    "name": "article",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "content": {
+      "type": "richtext",
+      "required": true
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "title",
+      "required": true
+    },
+    "category": {
+      "model": "category",
+      "via": "articles"
+    },
+    "image": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "files",
+        "images",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": true,
+      "pluginOptions": {}
+    },
+    "author": {
+      "via": "articles",
+      "model": "writer"
+    },
+    "user": {
+      "via": "articles",
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "user_views": {
+      "via": "articleViews",
+      "plugin": "users-permissions",
+      "collection": "user",
+      "dominant": true
+    },
+    "numberofClaps": {
+      "type": "biginteger"
+    },
+    "user_claps": {
+      "via": "clappedArticles",
+      "plugin": "users-permissions",
+      "collection": "user",
+      "dominant": true
+    },
+    "numberofViews": {
+      "type": "biginteger"
+    },
+    "comments": {
+      "via": "article",
+      "collection": "comments"
+    }
+  }
+}
